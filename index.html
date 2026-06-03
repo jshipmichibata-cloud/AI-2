@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>御社のAI活用レベル診断</title>
+  <meta name="description" content="企業のAI活用状況、AIレベル、AI導入課題を8項目で診断し、改善ポイントを可視化します。">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="御社のAI活用レベル診断">
+      <span class="brand-mark">AI</span>
+      <span>AI活用レベル診断</span>
+    </a>
+    <nav class="header-nav" aria-label="ページ内ナビゲーション">
+      <a href="#diagnosis">診断する</a>
+      <a href="#contact">無料相談</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">企業向けAI導入・定着度チェック</p>
+          <h1>御社のAI活用レベル、<br>見える化できていますか？</h1>
+          <p class="lead">AIを導入して終わりではなく、現場で使いこなせる組織かを8項目で診断します。</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#diagnosis">無料でAI活用レベルを診断する</a>
+            <a class="button button-secondary" href="#learn">診断で分かること</a>
+          </div>
+        </div>
+        <div class="hero-panel" aria-label="診断概要">
+          <div class="panel-score">
+            <span>8項目</span>
+            <strong>16問</strong>
+          </div>
+          <div class="panel-lines">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <p>AI理解、現場活用、業務設計、教育定着、応用力、セキュリティ、リスク、経営推進力をまとめて可視化。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section concerns">
+      <div class="section-inner">
+        <div class="section-heading">
+          <p class="eyebrow">Problem</p>
+          <h2>AI導入後に、こんな課題はありませんか？</h2>
+        </div>
+        <div class="concern-grid">
+          <div class="concern-item">AIを導入したが、社員があまり使っていない</div>
+          <div class="concern-item">ChatGPTを使っている社員と使っていない社員の差がある</div>
+          <div class="concern-item">AIをどう業務に活かせばいいか分からない</div>
+          <div class="concern-item">情報漏洩やセキュリティ面が不安</div>
+          <div class="concern-item">AI活用の社内ルールが整っていない</div>
+          <div class="concern-item">経営層と現場でAI活用の温度差がある</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="learn" class="section learn">
+      <div class="section-inner">
+        <div class="section-heading">
+          <p class="eyebrow">Diagnosis Points</p>
+          <h2>診断で分かる8つのAI活用レベル</h2>
+          <p>会社としてAIを使いこなせる状態かを、経営・現場・リスク管理の観点から整理します。</p>
+        </div>
+        <div id="categoryCards" class="card-grid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section id="diagnosis" class="section diagnosis">
+      <div class="section-inner diagnosis-layout">
+        <div class="diagnosis-intro">
+          <p class="eyebrow">Free Check</p>
+          <h2>AI活用レベル診断フォーム</h2>
+          <p>各質問に5段階で回答してください。送信後、総合スコア、8項目別スコア、レーダーチャート、診断タイプ、現在の課題を表示します。</p>
+          <div class="scale-box">
+            <strong>回答選択肢</strong>
+            <span>1：まったく当てはまらない</span>
+            <span>2：あまり当てはまらない</span>
+            <span>3：どちらともいえない</span>
+            <span>4：やや当てはまる</span>
+            <span>5：非常に当てはまる</span>
+          </div>
+        </div>
+
+        <form id="diagnosisForm" class="diagnosis-form">
+          <div id="questions" class="question-list"></div>
+          <button class="button button-primary button-wide" type="submit">診断結果を見る</button>
+          <p id="formError" class="form-error" role="alert"></p>
+        </form>
+      </div>
+    </section>
+
+    <section id="results" class="section results" hidden>
+      <div class="section-inner">
+        <div class="result-head">
+          <div>
+            <p class="eyebrow">Result</p>
+            <h2>診断結果</h2>
+          </div>
+          <div class="total-score">
+            <span>総合スコア</span>
+            <strong id="totalScore">0</strong>
+            <small>/ 100点</small>
+          </div>
+        </div>
+
+        <div class="result-layout">
+          <div class="chart-card">
+            <canvas id="radarChart" width="420" height="420" aria-label="8項目のレーダーチャート" role="img"></canvas>
+          </div>
+          <div class="result-summary">
+            <div class="type-card">
+              <span class="type-label">診断タイプ</span>
+              <h3 id="diagnosisType"></h3>
+              <p id="typeDescription"></p>
+            </div>
+            <div>
+              <h3>現在の課題</h3>
+              <ul id="currentIssues" class="issue-list"></ul>
+            </div>
+          </div>
+        </div>
+
+        <div id="scoreCards" class="score-grid"></div>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact">
+      <div class="section-inner contact-layout">
+        <div class="contact-copy">
+          <p class="eyebrow">Consultation</p>
+          <h2>診断結果について無料相談する</h2>
+          <p>診断結果をもとに、御社のAI活用状況や優先的に整えるべきポイントをご相談いただけます。</p>
+          <p class="contact-note">送信内容はGoogleフォームへ送信され、Googleフォーム側で回答確認・スプレッドシート保存・メール通知を設定できます。ブラウザ側にも控えとしてローカル保存します。</p>
+        </div>
+
+        <form id="contactForm" class="contact-form">
+          <div class="form-grid">
+            <label>会社名<input name="company" autocomplete="organization" required></label>
+            <label>氏名<input name="name" autocomplete="name" required></label>
+            <label>部署<input name="department" autocomplete="organization-title"></label>
+            <label>役職<input name="position"></label>
+            <label>メールアドレス<input name="email" type="email" autocomplete="email" required></label>
+            <label>電話番号<input name="phone" type="tel" autocomplete="tel"></label>
+          </div>
+          <label>相談したい内容<textarea name="message" rows="5" placeholder="例：営業部門でのAI活用、社内ガイドライン整備、RAG活用など"></textarea></label>
+          <button class="button button-primary button-wide" type="submit">診断結果について無料相談する</button>
+          <p id="submitMessage" class="submit-message" role="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>御社のAI活用レベル診断</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
